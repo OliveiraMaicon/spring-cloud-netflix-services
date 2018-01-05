@@ -4,6 +4,6 @@ VOLUME /tmp
 
 ADD ./build/libs/*.jar app.jar
 
-EXPOSE 8082
+EXPOSE 8989
 
 ENTRYPOINT ["java","-Dspring.profiles.active=docker","-jar","/app.jar"]

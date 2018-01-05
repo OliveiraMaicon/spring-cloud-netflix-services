@@ -1,0 +1,31 @@
+eureka:
+  build: eureka-server/
+  ports:
+    - '8761:8761'
+
+
+product-service:
+  build: product-service/
+  environment:
+    - spring.profiles.active=docker
+  links:
+    - 'eureka:eureka-server'
+  ports:
+    - '8082:8082'
+
+gateway-painel-produtos:
+  build: product-service/
+  environment:
+    - spring.profiles.active=docker
+  links:
+    - 'eureka:eureka-server'
+    - 'product-service:product-service'
+  ports:
+    - '8080:8080'
+
+turbine:
+  build: turbine-service/
+  environment:
+    - spring.profiles.active=docker
+  ports:
+    - '8989:8989'
