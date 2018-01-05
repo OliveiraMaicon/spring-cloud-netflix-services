@@ -1,1 +1,3 @@
+rootProject.name = 'arquitetura-painel-produtos'
+
 include 'eureka-server','gateway-painel-produtos','product-service','turbina-service'

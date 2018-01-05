@@ -6,3 +6,7 @@ gradlew
 gradlew.bat
 
 spring-cloud-netflix-services.iml
+arquitetura-painel-produtos.iml
+build/
+eureka-server/src/main/kotlin/com/br/uol/produtos/painel/.DS_Store
+eureka-server/src/main/kotlin/com/br/uol/produtos/painel/eureka/.DS_Store
