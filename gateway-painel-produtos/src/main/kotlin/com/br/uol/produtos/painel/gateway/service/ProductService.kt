@@ -4,12 +4,16 @@ import org.springframework.stereotype.Service
 import com.netflix.discovery.EurekaClient
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.client.RestTemplate
 import java.net.URI
 
 
 @Service
 class ProductService {
+
+    @Value("\${message.fallback}")
+    lateinit var messageFallback: String
 
     @Autowired
     lateinit var restTemplate: RestTemplate
@@ -28,7 +32,7 @@ class ProductService {
     }
 
     fun reliable(): String {
-        return "Estamos com problema no momento"
+        return messageFallback
     }
 
     @HystrixCommand(fallbackMethod = "reliable")
