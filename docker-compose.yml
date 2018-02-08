@@ -1,44 +1,62 @@
-version: '2.1'
+version: '2'
 services:
     eureka:
       build: eureka-server/
-      #healthcheck:
-        #test: curl -f https://localhost:8761 || exit 1
-        #interval: 1m30s
-        #timeout: 10s
-        #retries: 3
+      container_name: eureka
+      hostname: eureka-server
+      networks:
+        - 'discovery'
       ports:
         - '8761:8761'
 
+    config:
+      build: config-server/
+      container_name: config-server
+      hostname: config-server
+      networks:
+        - 'discovery'
+      ports:
+        - '8888:8888'
+
     product-service:
       build: product-service/
+      container_name: product-service
+      hostname: product-service
       restart: always
-      environment:
-        - spring.profiles.active=docker
-      #depends_on:
-        #eureka:
-          #condition: service_healthy
-      ports:
-        - '8082:8082'
-
-    gateway-painel-produtos:
-      build: product-service/
       environment:
         - spring.profiles.active=docker
       depends_on:
         - eureka
-        #eureka:
           #condition: service_healthy
+      container_name: product-service
+      networks:
+        - 'discovery'
+      ports:
+        - '8082:8082'
+
+    gateway-painel-produtos:
+      build: gateway-painel-produtos/
+      container_name: gateway-painel-produtos
+      hostname: gateway-painel-produtos
+      environment:
+        - spring.profiles.active=docker
+      depends_on:
+        - eureka
+      networks:
+        - 'discovery'
       ports:
         - '8080:8080'
 
     turbine:
       build: turbine-service/
+      container_name: turbine-service
+      hostname: turbine-service
       environment:
         - spring.profiles.active=docker
       depends_on:
         - eureka
-        #eureka:
-          #condition: service_healthy
       ports:
         - '8989:8989'
+
+networks:
+  discovery:

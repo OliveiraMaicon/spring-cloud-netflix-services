@@ -2,7 +2,7 @@ FROM openjdk:8-jdk-alpine
 
 VOLUME /tmp
 
-ADD ./build/libs/*.jar app.jar
+ADD ./target/*.jar app.jar
 
 EXPOSE 8082
 

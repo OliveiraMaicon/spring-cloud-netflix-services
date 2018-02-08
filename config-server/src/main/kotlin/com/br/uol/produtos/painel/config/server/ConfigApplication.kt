@@ -6,12 +6,12 @@ import org.springframework.cloud.config.server.EnableConfigServer
 
 @EnableConfigServer
 @SpringBootApplication
-class ConfigServerApplication{
+class ConfigApplication {
 
     companion object {
 
         @JvmStatic fun main(args: Array<String>) {
-            SpringApplication.run(ConfigServerApplication::class.java, *args)
+            SpringApplication.run(ConfigApplication::class.java, *args)
         }
 
     }

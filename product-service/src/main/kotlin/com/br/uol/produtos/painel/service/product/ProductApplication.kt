@@ -8,12 +8,12 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix
 @EnableEurekaClient
 @EnableHystrix
 @SpringBootApplication
-class ProductServiceApplication{
+class ProductApplication {
 
     companion object {
 
         @JvmStatic fun main(args: Array<String>) {
-            SpringApplication.run(ProductServiceApplication::class.java, *args)
+            SpringApplication.run(ProductApplication::class.java, *args)
         }
 
     }

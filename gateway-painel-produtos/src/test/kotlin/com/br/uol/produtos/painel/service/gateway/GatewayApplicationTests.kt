@@ -1,4 +1,4 @@
-package com.br.uol.produtos.painel.service.product
+package com.br.uol.produtos.painel.service.gateway
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
-class ProductServiceApplicationTests {
+class GatewayApplicationTests {
 
 	@Test
 	fun contextLoads() {

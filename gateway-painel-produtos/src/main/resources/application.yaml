@@ -7,3 +7,29 @@ eureka:
 
 message:
   fallback: "AAAAA"
+
+
+
+spring.boot.admin.url: http://localhost:8989
+
+management.security.enabled: false
+
+---
+spring:
+  profiles: docker
+
+eureka:
+  instance:
+    hostname: gateway-painel-produtos
+  client:
+   registerWithEureka: true
+   fetchRegistry: true
+   serviceUrl:
+           defaultZone: http://eureka-server:8761/eureka/
+endpoints:
+ shutdown:
+    enabled: true
+
+spring.boot.admin.url: http://turbine-service:8989
+
+management.security.enabled: false

@@ -10,13 +10,52 @@ spring:
   application:
     name: eureka-server
 
+spring.boot.admin.url: http://localhost:8989
+
+management.security.enabled: false
 #Eureka Specifics
 
 eureka:
   instance:
     hostname: localhost
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 30
   client:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+            defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    enable-self-preservation: false
+
+---
+spring:
+  profiles: docker
+  application:
+    name: eureka-server
+
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: eureka-server
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 30
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+            defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    enable-self-preservation: false
+
+endpoints:
+ shutdown:
+    enabled: true
+
+spring.boot.admin.url: http://turbine-service:8989
+
+management.security.enabled: false
