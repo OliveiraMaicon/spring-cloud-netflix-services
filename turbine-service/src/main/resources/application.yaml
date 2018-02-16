@@ -1,5 +1,11 @@
 turbine:
-  appConfig: product-service, gateway-painel-produtos
+  appConfig: gateway-painel-produtos
+  aggregator:
+    cluster-config: gateway-painel-produtos
+  InstanceMonitor:
+    eventStream:
+      skipLineLogic:
+        enabled: false
 
 logging:
   level: INFO
@@ -14,17 +20,21 @@ eureka:
       enabled: true
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:8761/eureka/
-
-spring:
-  boot:
-    admin:
-      routes:
-        endpoints: env,metrics,dump,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents,hystrix.stream
+#spring:
+#  boot:
+#    admin:
+#      routes:
+#        endpoints: env,metrics,dump,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents,hystrix.stream
 
 
 ---
 spring:
   profiles: docker
+  boot:
+      admin:
+        routes:
+          endpoints: env,metrics,dump,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents,hystrix.stream
+
 
 eureka:
  instance:
@@ -38,9 +48,5 @@ eureka:
 
 turbine:
   appConfig: product-service, gateway-painel-produtos
-
-spring:
-  boot:
-    admin:
-      routes:
-        endpoints: env,metrics,dump,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents,hystrix.stream
+  aggregator:
+    cluster-config: product-service, gateway-painel-produtos

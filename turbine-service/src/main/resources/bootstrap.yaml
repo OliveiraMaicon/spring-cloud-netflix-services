@@ -4,3 +4,7 @@ server:
 spring:
   application:
     name: turbine-service
+  cloud:
+    config:
+      discovery:
+        enabled: false
