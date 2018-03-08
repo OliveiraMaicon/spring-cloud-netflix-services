@@ -4,3 +4,6 @@ server:
 spring:
   application:
     name: product-service
+  cloud:
+    config:
+      uri: http://localhost:8888
