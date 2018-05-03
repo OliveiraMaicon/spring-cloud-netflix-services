@@ -8,9 +8,14 @@ turbine:
         enabled: false
 
 logging:
-  level: INFO
+  level:
+   root: INFO
 
-management.security.enabled: false
+
+
+management:
+  security:
+    enabled: false
 
 eureka:
   instance:
