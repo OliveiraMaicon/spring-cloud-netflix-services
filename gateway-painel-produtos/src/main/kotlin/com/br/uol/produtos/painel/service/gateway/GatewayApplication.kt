@@ -8,6 +8,9 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard
 import org.springframework.context.annotation.Bean
 import org.springframework.web.client.RestTemplate
+import org.aspectj.weaver.tools.cache.SimpleCacheFactory.path
+
+
 
 @EnableCircuitBreaker
 @SpringBootApplication
@@ -27,4 +30,15 @@ class GatewayApplication {
     fun restTemplate(): RestTemplate {
         return RestTemplate()
     }
+
+    /*@Bean
+    fun customRouteLocator(builder: RouteLocatorBuilder): RouteLocator {
+        //@formatter:off
+        return builder.routes()
+                .route("path_route", { r ->
+                    r.path("/get")
+                            .uri("http://httpbin.org")
+                }).build()
+        //@formatter:on
+    }*/
 }
