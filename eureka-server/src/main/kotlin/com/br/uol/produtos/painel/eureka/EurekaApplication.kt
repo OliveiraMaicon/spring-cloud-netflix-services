@@ -12,8 +12,5 @@ class EurekaApplication {
         @JvmStatic fun main(args: Array<String>) {
             SpringApplication.run(EurekaApplication::class.java, *args)
         }
-
     }
-
-
 }

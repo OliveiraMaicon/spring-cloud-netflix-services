@@ -1,15 +1,18 @@
 package com.br.uol.produtos.painel.service.gateway
 
+import org.apache.http.client.config.RequestConfig
+import org.apache.http.impl.client.HttpClientBuilder
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient
 import org.springframework.cloud.netflix.hystrix.EnableHystrix
-import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard
 import org.springframework.context.annotation.Bean
+import org.springframework.http.client.ClientHttpRequestFactory
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory
 import org.springframework.web.client.RestTemplate
-import org.aspectj.weaver.tools.cache.SimpleCacheFactory.path
-
 
 
 @EnableCircuitBreaker
@@ -31,14 +34,19 @@ class GatewayApplication {
         return RestTemplate()
     }
 
-    /*@Bean
-    fun customRouteLocator(builder: RouteLocatorBuilder): RouteLocator {
-        //@formatter:off
-        return builder.routes()
-                .route("path_route", { r ->
-                    r.path("/get")
-                            .uri("http://httpbin.org")
-                }).build()
-        //@formatter:on
-    }*/
+
+    @Bean
+    @Qualifier("poolingHttpClientRequestFactory")
+    fun httpComponentsClientHttpRequestFactory(): ClientHttpRequestFactory {
+        val httpClientBuilder = HttpClientBuilder.create()
+        val requestConfig = RequestConfig.custom().setConnectTimeout(30000)
+                .setSocketTimeout(30000).build()
+        httpClientBuilder.setDefaultRequestConfig(requestConfig)
+        val connManager = PoolingHttpClientConnectionManager()
+        connManager.defaultMaxPerRoute = 10
+        connManager.maxTotal = 150
+        httpClientBuilder.setConnectionManager(connManager)
+        return HttpComponentsClientHttpRequestFactory(
+                httpClientBuilder.build())
+    }
 }

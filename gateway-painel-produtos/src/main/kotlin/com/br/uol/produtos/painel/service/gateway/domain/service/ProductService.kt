@@ -1,4 +1,4 @@
-package com.br.uol.produtos.painel.service.gateway.service
+package com.br.uol.produtos.painel.service.gateway.domain.service
 
 import com.netflix.discovery.EurekaClient
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand
@@ -25,7 +25,7 @@ class ProductService {
     lateinit var discoveryClient: EurekaClient
 
     @HystrixCommand(fallbackMethod = "reliable")
-    fun getProducts(): String {
+    fun getProducts(): String? {
         return this.restTemplate.getForObject(URI.create(serviceUrl() + "products"), String::class.java)
     }
 
